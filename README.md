@@ -8,9 +8,7 @@ In this project, we will try to obtain an accurate estimation of the location of
 
 ![Example][image1] 
 
-Lidar measurements are red circles, radar measurements are blue circles with an arrow pointing in the direction of the observed angle, and estimation markers are green triangles. On the bellow image we can see them better:
-
-![Zoom In Example][image2] 
+expliquer l'image puis la base de l'algo parler de genetic mais vite fais
 
 ## Files description
 
