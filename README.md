@@ -111,6 +111,6 @@ Here is the main protocol that main.cpp uses for uWebSocketIO in communicating w
   * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
   * Windows: recommend using [MinGW](http://www.mingw.org/)
 
-## Note:
+## Note
 
 I modified the resampling process to look like a genetic algorithm, which means that instead of just copying a previous particle, I create a new one that is the average of two others from the previous generation. The average is weighted according to the weight of the two parent particles. In this project, it didn't change much, but I think that if the map was bigger and the car really lost, the particles could converge more quickly with this type of algorithm. Here the "mutations" are made by noise but it would probably be preferable to have larger mutations in order to be sure to cover most of the map in time. This could prevent us from having too many particles just because we don't want to miss the right place in the initialization.
