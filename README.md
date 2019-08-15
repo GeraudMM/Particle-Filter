@@ -8,9 +8,9 @@ In this project, we will try to obtain an accurate estimation of the location of
 
 ![Example][image1] 
 
-On this image, the black circles are the landmarks which coordinates are perfectly known on the map, the car is in blue and it's estimation position by the particle filter is the blue circle. Finally, the green lines are linked to the landmarks in the sensor range of the car.\\
+In this image, the black circles are the marks whose coordinates are perfectly known on the map. The car is in blue and its position estimated by the particle filter is the blue circle. Finally, the green lines are linked to the landmarks in the car's sensor range.
 
-To summerize, the car is lost and only have sensors that show it the landmark with noise. And then, as we know the map and all the landmarks on it, we try, thanks to the particle filter to find the match between the view of the car and the good part of the map. According to that, we are able to know the position of the car with at least a ten centimeters precision.
+To summarize, the car is lost and has only noisy sensors to find the landmarks. Then, as we know the map and all the landmarks it contains, we try, through the particle filter, to find the correspondence between the view of the car and the good part of the map. Thus, we can know the position of the car with an accuracy of about ten centimetres.
 
 
 ## Files description
@@ -113,4 +113,4 @@ Here is the main protocol that main.cpp uses for uWebSocketIO in communicating w
 
 ## Note:
 
-I modified the resempling process to look like a genetic algorithm which mean that instead of just taking one previous particle, I create a new one which is the mean of two other from the previous generation. The mean is ponderate according to the weight of the two parents particle. In this project, it didn't change a lot but I think that if the map was larger and the car really lost, it could converge faster with this kind of algorithm. Here the "mutations" are made by the noise but it could be better to had bigger mutation in order to be sure to cover the most part of the map. This could provide us from having to much particle in order to be sure to not miss the good place in initialization.
+I modified the resampling process to look like a genetic algorithm, which means that instead of just copying a previous particle, I create a new one that is the average of two others from the previous generation. The average is weighted according to the weight of the two parent particles. In this project, it didn't change much, but I think that if the map was bigger and the car really lost, the particles could converge more quickly with this type of algorithm. Here the "mutations" are made by noise but it would probably be preferable to have larger mutations in order to be sure to cover most of the map in time. This could prevent us from having too many particles just because we don't want to miss the right place in the initialization.
