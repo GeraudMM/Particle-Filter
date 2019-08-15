@@ -8,15 +8,23 @@ In this project, we will try to obtain an accurate estimation of the location of
 
 ![Example][image1] 
 
-expliquer l'image puis la base de l'algo parler de genetic mais vite fais
+On this image, the black circles are the landmarks which coordinates are perfectly known on the map, the car is in blue and it's estimation position by the particle filter is the blue circle. Finally, the green lines are linked to the landmarks in the sensor range of the car.\\
+
+To summerize, the car is lost and only have sensors that show it the landmark with noise. And then, as we know the map and all the landmarks on it, we try, thanks to the particle filter to find the match between the view of the car and the good part of the map. According to that, we are able to know the position of the car with at least a ten centimeters precision.
+
 
 ## Files description
 
- - `Kalman.cpp` is the script file containing the Kalman class use to predict and update the state of our car.
+The script files are in the `src` folder. All the other files or folders are there to ensure we can run the program successfully. 
+Here are the main script files:
+
+ - `particle_filter.cpp` and `particle_filter.h` contain the Particle structur and the Particlefilter Class. 
  
- - `FusionEKF.cpp` is the script file use to initialise the variables and decide which kalman function to use in which order.
+ - `map.h` contain the Map class wich is a list of landmarks.
  
- - `Tools.cpp` is the script use to implement the RMSE (Root Main Square Error) of our kalman filter and also use to implement the jacobian function which is needed for the extended kalman filter update function.
+ - `helper_functions.h` is a script containing some helpfull functions.
+ 
+ - `main.cpp` is of course the main script but take also care of the protocol.
 
 ## Getting Started
  
@@ -43,7 +51,7 @@ Alternatively some scripts have been included to streamline this process, these 
 
 Then you only need to open the executable file in the `Term 2 Simulator` folder and launch the third project to watch the algorithm evovle.
 
-
+## Protocol
 Here is the main protocol that main.cpp uses for uWebSocketIO in communicating with the simulator.
 
 **INPUT:** values provided by the simulator to the c++ program
@@ -90,7 +98,7 @@ Here is the main protocol that main.cpp uses for uWebSocketIO in communicating w
 
 ["best_particle_sense_y"] <= list of sensed y positions
 
-### Other Important Dependencies
+## Other Important Dependencies
 
 * cmake >= 3.5
   * All OSes: [click here for installation instructions](https://cmake.org/install/)
@@ -103,3 +111,6 @@ Here is the main protocol that main.cpp uses for uWebSocketIO in communicating w
   * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
   * Windows: recommend using [MinGW](http://www.mingw.org/)
 
+## Note:
+
+I modified the resempling process to look like a genetic algorithm which mean that instead of just taking one previous particle, I create a new one which is the mean of two other from the previous generation. The mean is ponderate according to the weight of the two parents particle. In this project, it didn't change a lot but I think that if the map was larger and the car really lost, it could converge faster with this kind of algorithm. Here the "mutations" are made by the noise but it could be better to had bigger mutation in order to be sure to cover the most part of the map. This could provide us from having to much particle in order to be sure to not miss the good place in initialization.
