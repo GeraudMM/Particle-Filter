@@ -22,8 +22,9 @@ expliquer l'image puis la base de l'algo parler de genetic mais vite fais
  
 This project involves the Term 2 Simulator from Udacity which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases).
 
-Download the Udacity [project](https://github.com/udacity/CarND-Extended-Kalman-Filter-Project) on extended kalman filter and then replace the `kalman.cpp`, `FusionEKF.cpp` and `Tools.cpp` files in the `src` folder by the ones from this repository. 
+Download the [Particle-Filter repo](https://github.com/GeraudMM/Particle-Filter).
 
+Then install uWebSocketIO.
 The Udacity repository includes two files that can be used to set up and install [uWebSocketIO](https://github.com/uWebSockets/uWebSockets) for either Linux or Mac systems. For windows you can use either Docker, VMware, or even [Windows 10 Bash on Ubuntu](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) to install uWebSocketIO.
 
 Once the install for uWebSocketIO is complete, the main program can be built and run by doing the following from the project top directory.
@@ -32,32 +33,62 @@ Once the install for uWebSocketIO is complete, the main program can be built and
 2. cd build
 3. cmake ..
 4. make
-5. ./ExtendedKF
+5. ./particle_filter
 
-Then you only need to open the executable file in the simulation folder to see your algorithm evolving.
+Alternatively some scripts have been included to streamline this process, these can be leveraged by executing the following in the top directory of the project:
+
+1. ./clean.sh
+2. ./build.sh
+3. ./run.sh
+
+Then you only need to open the executable file in the `Term 2 Simulator` folder and launch the third project to watch the algorithm evovle.
+
 
 Here is the main protocol that main.cpp uses for uWebSocketIO in communicating with the simulator.
 
+**INPUT:** values provided by the simulator to the c++ program
 
-**INPUT**: values provided by the simulator to the c++ program
+// sense noisy position data from the simulator
 
-["sensor_measurement"] => the measurement that the simulator observed (either lidar or radar)
+["sense_x"]
 
+["sense_y"]
 
-**OUTPUT**: values provided by the c++ program to the simulator
+["sense_theta"]
 
-["estimate_x"] <= kalman filter estimated position x
+// get the previous velocity and yaw rate to predict the particle's transitioned state
 
-["estimate_y"] <= kalman filter estimated position y
+["previous_velocity"]
 
-["rmse_x"]
+["previous_yawrate"]
 
-["rmse_y"]
+// receive noisy observation data from the simulator, in a respective list of x/y values
 
-["rmse_vx"]
+["sense_observations_x"]
 
-["rmse_vy"]
+["sense_observations_y"]
 
+**OUTPUT:** values provided by the c++ program to the simulator
+
+// best particle values used for calculating the error evaluation
+
+["best_particle_x"]
+
+["best_particle_y"]
+
+["best_particle_theta"]
+
+//Optional message data used for debugging particle's sensing and associations
+
+// for respective (x,y) sensed positions ID label
+
+["best_particle_associations"]
+
+// for respective (x,y) sensed positions
+
+["best_particle_sense_x"] <= list of sensed x positions
+
+["best_particle_sense_y"] <= list of sensed y positions
 
 ### Other Important Dependencies
 
@@ -72,17 +103,3 @@ Here is the main protocol that main.cpp uses for uWebSocketIO in communicating w
   * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
   * Windows: recommend using [MinGW](http://www.mingw.org/)
 
-### Basic Build Instructions
-
-1. Clone this repo.
-2. Make a build directory: `mkdir build && cd build`
-3. Compile: `cmake .. && make` 
-   * On windows, you may need to run: `cmake .. -G "Unix Makefiles" && make`
-4. Run it: `./ExtendedKF `
-
-
-### Generating Additional Data
-
-If you'd like to generate your own radar and lidar data, see the
-[utilities repo](https://github.com/udacity/CarND-Mercedes-SF-Utilities) for
-Matlab scripts that can generate additional data.
